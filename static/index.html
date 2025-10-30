@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB SERVER PROJECT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 { margin-bottom: 10px; }
+        p { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Hi, I'm Jaiom!</h1>
+        <p>This is one of my first projects in Go!.</p>
+        <h2>Here is the Weather in Dallas, Tx:</h2>
+        <p id="weather">Loading...</p>
+    </div>
+
+    <script>
+        async function fetchWeather() {
+            const res = await fetch('/api/weather');
+            const data = await res.json();
+            const temp = data.current_weather.temperature;
+            const wind = data.current_weather.windspeed;
+            document.getElementById('weather').textContent = 
+                `Temperature: ${(temp*((9/5))+32).toFixed(2)}°F | Wind: ${wind} km/h`;
+        }
+        fetchWeather();
+    </script>
+</body>
+</html>
